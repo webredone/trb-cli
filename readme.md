@@ -2,7 +2,7 @@
 
 # **TRB CLI (Theme Redone Blocks CLI)**
 
-TRB-CLI is a handy Node.js CLI that automates the process of managing blocks in a **[theme-redone theme](https://webredone.com/theme-redone/)**.
+TRB-CLI is a handy Node.js CLI that automates the process of managing blocks in a **[theme-redone WordPress theme framework](https://webredone.com/theme-redone/)**.
 
 Instead of manually creating new blocks, and copying and renaming files, you can do just that with a single simple command.
 

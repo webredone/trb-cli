@@ -1,7 +1,7 @@
 {
-  "name": "tr-cli-test",
+  "name": "trb-cli",
   "version": "1.0.0",
-  "description": "",
+  "description": "TRB-CLI is a handy Node.js CLI that automates the process of managing blocks in a Theme Redone WordPress theme",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -10,9 +10,15 @@
   "bin": {
     "trb": "./index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "WP",
+    "WordPress",
+    "Gutenberg",
+    "Custom",
+    "Blocks"
+  ],
+  "author": "WebRedone",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^5.0.1",
     "commander": "^9.1.0",
