@@ -1,16 +1,18 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
-import chalk from 'chalk';
+import chalk from "chalk";
 
-import isInThemeRoot from '../lib/isInThemeRoot.js';
-import toKebabCase from '../lib/toKebabCase.js';
-import { blocksDirPath } from '../CONFIG.js';
-import copyBlock from '../lib/copyBlock.js';
+import isInThemeOrPluginRoot from "../lib/isInThemeOrPluginRoot.js";
+import toKebabCase from "../lib/toKebabCase.js";
+import { FILES_PATHS } from "../CONFIG.js";
+import copyBlock from "../lib/copyBlock.js";
 
 function copy_existing_block(blockName, newBlockName) {
   console.clear();
-  if (!isInThemeRoot()) return false;
+
+  const projType = isInThemeOrPluginRoot();
+  if (!projType) return false;
 
   const kebabCaseBlockName = toKebabCase(blockName);
   const kebabCaseNewBlockName = toKebabCase(newBlockName);
@@ -25,17 +27,21 @@ function copy_existing_block(blockName, newBlockName) {
     kebabCaseNewBlockName !== newBlockName
   ) {
     console.clear();
-    console.log('\n');
+    console.log("\n");
     kebabCaseBlockName !== blockName && console.log(blockNameCaseErrorMsg);
     kebabCaseNewBlockName !== newBlockName &&
       console.log(newBlockNameCaseErrorMsg);
-    console.log('\n');
+    console.log("\n");
     return false;
   }
 
   // If block doesn't exist in /blocks dir, exit
-  const theme_root_dir = process.cwd();
-  if (!fs.existsSync(path.join(theme_root_dir, blocksDirPath, blockName))) {
+  const projectRootDir = process.cwd();
+  if (
+    !fs.existsSync(
+      path.join(projectRootDir, FILES_PATHS.blocksDirPath[projType], blockName)
+    )
+  ) {
     console.log(
       chalk.red(`\nIt appears that the block "${blockName}" doesn't exist.\n`)
     );
@@ -43,7 +49,15 @@ function copy_existing_block(blockName, newBlockName) {
   }
 
   // If newName already exists as a block
-  if (fs.existsSync(path.join(theme_root_dir, blocksDirPath, newBlockName))) {
+  if (
+    fs.existsSync(
+      path.join(
+        projectRootDir,
+        FILES_PATHS.blocksDirPath[projType],
+        newBlockName
+      )
+    )
+  ) {
     console.clear();
     console.log(
       chalk.red(

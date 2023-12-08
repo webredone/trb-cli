@@ -1,27 +1,32 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
-import chalk from 'chalk';
+import chalk from "chalk";
 
-import { blueprintBlockName, blocksDirPath } from '../CONFIG.js';
-import isInThemeRoot from '../lib/isInThemeRoot.js';
-import toKebabCase from '../lib/toKebabCase.js';
-import renameBlock from '../lib/renameBlock.js';
+import { FILES_PATHS } from "../CONFIG.js";
+import isInThemeOrPluginRoot from "../lib/isInThemeOrPluginRoot.js";
+import toKebabCase from "../lib/toKebabCase.js";
+import renameBlock from "../lib/renameBlock.js";
 
 function rename_existing_block(blockName, blockNewName) {
-  if (!isInThemeRoot()) return false;
+  const projType = isInThemeOrPluginRoot();
 
-  if (blockName === blueprintBlockName || blockNewName === blueprintBlockName) {
+  if (!projType) return false;
+
+  if (
+    blockName === FILES_PATHS.blueprintBlockName ||
+    blockNewName === FILES_PATHS.blueprintBlockName
+  ) {
     console.clear();
     console.log(
       `\n${chalk.red(
-        `"${blueprintBlockName}" shouldn't be renamed, removed or used as a name for new blocks.`
+        `"${FILES_PATHS.blueprintBlockName}" shouldn't be renamed, removed or used as a name for new blocks.`
       )}\n`
     );
 
     return false;
   }
-  const theme_root_dir = process.cwd();
+  const projectRootDir = process.cwd();
 
   const kebabCaseBlockName = toKebabCase(blockName);
   const kebabCaseNewBlockName = toKebabCase(blockNewName);
@@ -36,16 +41,20 @@ function rename_existing_block(blockName, blockNewName) {
     kebabCaseNewBlockName !== blockNewName
   ) {
     console.clear();
-    console.log('\n');
+    console.log("\n");
     kebabCaseBlockName !== blockName && console.log(blockNameCaseErrorMsg);
     kebabCaseNewBlockName !== blockNewName &&
       console.log(newBlockNameCaseErrorMsg);
-    console.log('\n');
+    console.log("\n");
     return false;
   }
 
   // If block doesn't exist in /blocks dir, exit
-  if (!fs.existsSync(path.join(theme_root_dir, blocksDirPath, blockName))) {
+  if (
+    !fs.existsSync(
+      path.join(projectRootDir, FILES_PATHS.blocksDirPath[projType], blockName)
+    )
+  ) {
     console.log(
       chalk.red(`\nIt appears that the block "${blockName}" doesn't exist.\n`)
     );
@@ -53,7 +62,15 @@ function rename_existing_block(blockName, blockNewName) {
   }
 
   // If newName already exists as a block
-  if (fs.existsSync(path.join(theme_root_dir, blocksDirPath, blockNewName))) {
+  if (
+    fs.existsSync(
+      path.join(
+        projectRootDir,
+        FILES_PATHS.blocksDirPath[projType],
+        blockNewName
+      )
+    )
+  ) {
     console.clear();
     console.log(
       chalk.red(
