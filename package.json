@@ -1,22 +1,51 @@
 {
-  "name": "@webredone/trb-cli",
-  "version": "1.0.1",
+  "_from": "@webredone/trb-cli",
+  "_id": "@webredone/trb-cli@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-Ql9p/xAdXoY4EEfzUoECmBSv2O/8huAR/R28D/qG5UE3Hv4N/h/mCrWCax5o3xRfqv8WxrsziAjc9gVKuW/ZEg==",
+  "_location": "/@webredone/trb-cli",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@webredone/trb-cli",
+    "name": "@webredone/trb-cli",
+    "escapedName": "@webredone%2ftrb-cli",
+    "scope": "@webredone",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/@webredone/trb-cli/-/trb-cli-1.0.1.tgz",
+  "_shasum": "f0d45821e601aa5620afacf359c1135b4a967af5",
+  "_spec": "@webredone/trb-cli",
+  "_where": "/Users/nikolaivanov/Local Sites/trbs/app/public/wp-content/plugins/trbs-framework",
+  "author": {
+    "name": "WebRedone"
+  },
+  "bin": {
+    "trb": "index.js"
+  },
+  "bugs": {
+    "url": "https://github.com/webredone/trb-cli/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "commander": "^9.1.0",
+    "conf": "^10.1.1",
+    "is-snake-case": "^0.1.0",
+    "ncp": "^2.0.0"
+  },
+  "deprecated": false,
   "description": "TRB-CLI is a handy Node.js CLI that automates the process of managing blocks in a Theme Redone WordPress theme",
-  "main": "index.js",
-  "type": "module",
   "directories": {
     "lib": "lib"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "bin": {
-    "trb": "./index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/webredone/trb-cli.git"
-  },
+  "homepage": "https://webredone.com/theme-redone/",
   "keywords": [
     "WP",
     "WordPress",
@@ -24,17 +53,16 @@
     "Custom",
     "Blocks"
   ],
-  "author": "WebRedone",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/webredone/trb-cli/issues"
+  "main": "index.js",
+  "name": "@webredone/trb-cli",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webredone/trb-cli.git"
   },
-  "homepage": "https://webredone.com/theme-redone/",
-  "dependencies": {
-    "chalk": "^5.0.1",
-    "commander": "^9.1.0",
-    "conf": "^10.1.1",
-    "is-snake-case": "^0.1.0",
-    "ncp": "^2.0.0"
-  }
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "version": "1.0.1"
 }

@@ -1,41 +1,48 @@
-import fs from 'fs';
-import path from 'path';
-import chalk from 'chalk';
+import fs from "fs";
+import path from "path";
+import chalk from "chalk";
 
-import { blocksDirPath, blueprintBlockName } from '../CONFIG.js';
-import isInThemeRoot from '../lib/isInThemeRoot.js';
-import toKebabCase from '../lib/toKebabCase.js';
-import generateNewBlock from '../lib/generateNewBlock.js';
+import { FILES_PATHS } from "../CONFIG.js";
+import isInThemeOrPluginRoot from "../lib/isInThemeOrPluginRoot.js";
+import toKebabCase from "../lib/toKebabCase.js";
+import generateNewBlock from "../lib/generateNewBlock.js";
 
 async function create_new_block(block_name) {
-  if (block_name === blueprintBlockName) {
+  if (block_name === FILES_PATHS.blueprintBlockName) {
     console.log(
       `\n${chalk.red(
-        `"${blueprintBlockName}" name is reserved.`
-      )} ${chalk.yellow('Please give it a different name.\n')}`
+        `"${FILES_PATHS.blueprintBlockName}" name is reserved.`
+      )} ${chalk.yellow("Please give it a different name.\n")}`
     );
 
     return false;
   }
 
-  if (!isInThemeRoot()) return false;
+  const projType = isInThemeOrPluginRoot();
 
-  const theme_root_dir = process.cwd();
+  if (!projType) return false;
+
+  const projectRootDir = process.cwd();
+
+  console.log("projectRootDir: ", projectRootDir);
+  console.log("Blocks Dir Path: ", FILES_PATHS.blocksDirPath[projType]);
 
   // If blocks folder is missing
   if (
-    !fs.existsSync(path.join(theme_root_dir, blocksDirPath)) ||
     !fs.existsSync(
-      path.join(theme_root_dir, blocksDirPath, 'new-block-blueprint')
+      path.join(projectRootDir, FILES_PATHS.blocksDirPath[projType])
+    ) ||
+    !fs.existsSync(
+      path.join(projectRootDir, FILES_PATHS.blueprintBlockDir[projType])
     )
   ) {
     console.log(
       chalk.red(
-        '\nIt appears that the /blocks folder or /blocks/new-block-blueprint is missing'
+        "\nIt appears that the /blocks folder or /blocks/new-block-blueprint is missing"
       )
     );
     console.log(
-      chalk.red('\nPlease do not remove or rename those 2 folders\n')
+      chalk.red("\nPlease do not remove or rename those 2 folders\n")
     );
     return false;
   }
@@ -51,11 +58,15 @@ async function create_new_block(block_name) {
   }
 
   // Check if block already exists as a dir in /blocks or as an entry in /blocks_array.json
-  if (fs.existsSync(path.join(theme_root_dir, blocksDirPath, block_name))) {
+  if (
+    fs.existsSync(
+      path.join(projectRootDir, FILES_PATHS.blocksDirPath[projType], block_name)
+    )
+  ) {
     console.log(
       chalk.red(`\nIt appears that the block "${block_name}" already exists.\n`)
     );
-    console.log(chalk.yellow('Please try again with a different name.\n'));
+    console.log(chalk.yellow("Please try again with a different name.\n"));
     return false;
   }
 
