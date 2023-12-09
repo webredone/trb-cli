@@ -30,12 +30,12 @@ jobs:
 
       - name: Get the package version
         id: get_version
-        run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+        run: echo "PACKAGE_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: Notify Slack
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_TITLE: 'Deployment Status'
-          SLACK_MESSAGE: 'npm package @webredone/trb-cli version ${{ steps.get_version.outputs.version }} published successfully!'
+          SLACK_MESSAGE: 'npm package @webredone/trb-cli version ${{ env.PACKAGE_VERSION }} published successfully!'
           SLACK_COLOR: '#36a64f'
