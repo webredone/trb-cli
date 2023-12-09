@@ -8,6 +8,8 @@ jobs:
   publish-npm:
     runs-on: ubuntu-latest
     if: github.event.release.target_commitish == 'main'
+    outputs:
+      package-version: ${{ steps.get_version.outputs.version }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
@@ -25,3 +27,15 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Get the package version
+        id: get_version
+        run: echo "::set-output name=version::$(node -p "require('./package.json').version")"
+
+      - name: Notify Slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_TITLE: 'Deployment Status'
+          SLACK_MESSAGE: 'npm package @webredone/trb-cli version ${{ steps.get_version.outputs.version }} published successfully!'
+          SLACK_COLOR: '#36a64f'
