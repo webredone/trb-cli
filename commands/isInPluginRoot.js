@@ -1,10 +1,10 @@
-import fs from "fs";
+import fs from 'fs';
 import {
   gutenbergDirPath,
   packageJSONPath,
   ERROR_MSG_INCORRECT_DIR,
   VISIT_FOR_MORE_INFO,
-} from "../CONFIG.js";
+} from '../CONFIG.js';
 
 function printIncorrectDirError() {
   console.log(ERROR_MSG_INCORRECT_DIR);
@@ -16,8 +16,7 @@ function isInPluginRoot() {
     // Read from package.json and see if we are in the correct directory
     const pJsonObj = JSON.parse(fs.readFileSync(packageJSONPath));
 
-    // TODO: Check if we are in a plugin directory now, and if it has the correct name in package.json
-    if (pJsonObj.name === "theme-redone") {
+    if (pJsonObj.name === 'theme-redone') {
       return true;
     }
     printIncorrectDirError();

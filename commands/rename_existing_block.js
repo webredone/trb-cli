@@ -1,12 +1,12 @@
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
-import chalk from "chalk";
+import chalk from 'chalk';
 
-import { FILES_PATHS } from "../CONFIG.js";
-import isInThemeOrPluginRoot from "../lib/isInThemeOrPluginRoot.js";
-import toKebabCase from "../lib/toKebabCase.js";
-import renameBlock from "../lib/renameBlock.js";
+import { FILES_PATHS } from '../CONFIG.js';
+import isInThemeOrPluginRoot from '../lib/isInThemeOrPluginRoot.js';
+import toKebabCase from '../lib/toKebabCase.js';
+import renameBlock from '../lib/renameBlock.js';
 
 function rename_existing_block(blockName, blockNewName) {
   const projType = isInThemeOrPluginRoot();
@@ -41,11 +41,11 @@ function rename_existing_block(blockName, blockNewName) {
     kebabCaseNewBlockName !== blockNewName
   ) {
     console.clear();
-    console.log("\n");
+    console.log('\n');
     kebabCaseBlockName !== blockName && console.log(blockNameCaseErrorMsg);
     kebabCaseNewBlockName !== blockNewName &&
       console.log(newBlockNameCaseErrorMsg);
-    console.log("\n");
+    console.log('\n');
     return false;
   }
 

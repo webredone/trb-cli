@@ -1,18 +1,18 @@
-import fs from "fs";
-import path from "path";
-import chalk from "chalk";
+import fs from 'fs';
+import path from 'path';
+import chalk from 'chalk';
 
-import { FILES_PATHS } from "../CONFIG.js";
-import isInThemeOrPluginRoot from "../lib/isInThemeOrPluginRoot.js";
-import toKebabCase from "../lib/toKebabCase.js";
-import generateNewBlock from "../lib/generateNewBlock.js";
+import { FILES_PATHS } from '../CONFIG.js';
+import isInThemeOrPluginRoot from '../lib/isInThemeOrPluginRoot.js';
+import toKebabCase from '../lib/toKebabCase.js';
+import generateNewBlock from '../lib/generateNewBlock.js';
 
 async function create_new_block(block_name) {
   if (block_name === FILES_PATHS.blueprintBlockName) {
     console.log(
       `\n${chalk.red(
         `"${FILES_PATHS.blueprintBlockName}" name is reserved.`
-      )} ${chalk.yellow("Please give it a different name.\n")}`
+      )} ${chalk.yellow('Please give it a different name.\n')}`
     );
 
     return false;
@@ -24,8 +24,8 @@ async function create_new_block(block_name) {
 
   const projectRootDir = process.cwd();
 
-  console.log("projectRootDir: ", projectRootDir);
-  console.log("Blocks Dir Path: ", FILES_PATHS.blocksDirPath[projType]);
+  console.log('projectRootDir: ', projectRootDir);
+  console.log('Blocks Dir Path: ', FILES_PATHS.blocksDirPath[projType]);
 
   // If blocks folder is missing
   if (
@@ -38,11 +38,11 @@ async function create_new_block(block_name) {
   ) {
     console.log(
       chalk.red(
-        "\nIt appears that the /blocks folder or /blocks/new-block-blueprint is missing"
+        '\nIt appears that the /blocks folder or /blocks/new-block-blueprint is missing'
       )
     );
     console.log(
-      chalk.red("\nPlease do not remove or rename those 2 folders\n")
+      chalk.red('\nPlease do not remove or rename those 2 folders\n')
     );
     return false;
   }
@@ -66,7 +66,7 @@ async function create_new_block(block_name) {
     console.log(
       chalk.red(`\nIt appears that the block "${block_name}" already exists.\n`)
     );
-    console.log(chalk.yellow("Please try again with a different name.\n"));
+    console.log(chalk.yellow('Please try again with a different name.\n'));
     return false;
   }
 

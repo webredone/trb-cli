@@ -1,12 +1,12 @@
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
-import chalk from "chalk";
+import chalk from 'chalk';
 
-import isInThemeOrPluginRoot from "../lib/isInThemeOrPluginRoot.js";
-import toKebabCase from "../lib/toKebabCase.js";
-import { FILES_PATHS } from "../CONFIG.js";
-import copyBlock from "../lib/copyBlock.js";
+import isInThemeOrPluginRoot from '../lib/isInThemeOrPluginRoot.js';
+import toKebabCase from '../lib/toKebabCase.js';
+import { FILES_PATHS } from '../CONFIG.js';
+import copyBlock from '../lib/copyBlock.js';
 
 function copy_existing_block(blockName, newBlockName) {
   console.clear();
@@ -27,11 +27,11 @@ function copy_existing_block(blockName, newBlockName) {
     kebabCaseNewBlockName !== newBlockName
   ) {
     console.clear();
-    console.log("\n");
+    console.log('\n');
     kebabCaseBlockName !== blockName && console.log(blockNameCaseErrorMsg);
     kebabCaseNewBlockName !== newBlockName &&
       console.log(newBlockNameCaseErrorMsg);
-    console.log("\n");
+    console.log('\n');
     return false;
   }
 
