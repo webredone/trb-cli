@@ -1,9 +1,8 @@
-import { readdirSync } from "fs";
-import chalk from "chalk";
+import { readdirSync } from 'fs';
+import chalk from 'chalk';
 
-import { FILES_PATHS } from "../CONFIG.js";
-import isInThemeOrPluginRoot from "../lib/isInThemeOrPluginRoot.js";
-import handleBlocksArr from "../lib/handleBlocksArr.js";
+import { FILES_PATHS } from '../CONFIG.js';
+import isInThemeOrPluginRoot from '../lib/isInThemeOrPluginRoot.js';
 
 const getBlocksFolderNames = (blocksDirPath) =>
   readdirSync(blocksDirPath, {
@@ -18,9 +17,9 @@ function list_created_blocks() {
   if (!projType) return false;
   console.clear();
 
-  console.log("\n");
+  console.log('\n');
   console.log(
-    chalk.yellow.bold("A List of Registered Blocks in blocks_array.json\n")
+    chalk.yellow.bold('A List of Registered Blocks in blocks_array.json\n')
   );
 
   const blocks_folder_names = getBlocksFolderNames(
@@ -32,5 +31,3 @@ function list_created_blocks() {
 }
 
 export default list_created_blocks;
-
-// TODO: _editor.scss file is not properly modified when creating it via trb-cli

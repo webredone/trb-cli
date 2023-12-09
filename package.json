@@ -1,6 +1,6 @@
 {
   "name": "@webredone/trb-cli",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "TRB-CLI is a handy Node.js CLI that automates the process of managing blocks in a Theme Redone WordPress theme",
   "main": "index.js",
   "type": "module",

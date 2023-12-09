@@ -1,12 +1,12 @@
-import fs from "fs";
-import path from "path";
-import readline from "readline";
-import chalk from "chalk";
+import fs from 'fs';
+import path from 'path';
+import readline from 'readline';
+import chalk from 'chalk';
 
-import { FILES_PATHS } from "../CONFIG.js";
-import removeBlock from "../lib/removeBlock.js";
-import isInThemeOrPluginRoot from "../lib/isInThemeOrPluginRoot.js";
-import toKebabCase from "../lib/toKebabCase.js";
+import { FILES_PATHS } from '../CONFIG.js';
+import removeBlock from '../lib/removeBlock.js';
+import isInThemeOrPluginRoot from '../lib/isInThemeOrPluginRoot.js';
+import toKebabCase from '../lib/toKebabCase.js';
 
 function continueRemoval(blockName) {
   const projType = isInThemeOrPluginRoot();
@@ -26,11 +26,11 @@ function continueRemoval(blockName) {
     console.clear();
     console.log(
       chalk.red(
-        "\nIt appears that the /blocks folder or /blocks/new-block-blueprint is missing"
+        '\nIt appears that the /blocks folder or /blocks/new-block-blueprint is missing'
       )
     );
     console.log(
-      chalk.red("\nPlease do not remove or rename those 2 folders\n")
+      chalk.red('\nPlease do not remove or rename those 2 folders\n')
     );
     return false;
   }
@@ -85,10 +85,10 @@ function remove_existing_block(blockName) {
       output: process.stdout,
     });
     rl.question(questionString, function (answer) {
-      if (answer === "yes") {
+      if (answer === 'yes') {
         removeBlock(blockName);
       } else {
-        console.log(chalk.yellow("Aborted."));
+        console.log(chalk.yellow('Aborted.'));
       }
       rl.close();
     });

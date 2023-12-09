@@ -1,33 +1,33 @@
 #! /usr/bin/env node
 
-import { program } from "commander";
-import list_created_blocks from "./commands/list_created_blocks.js";
+import { program } from 'commander';
+import list_created_blocks from './commands/list_created_blocks.js';
 
-import create_new_block from "./commands/create_new_block.js";
-import remove_existing_block from "./commands/remove_existing_block.js";
-import { help } from "./CONFIG.js";
-import rename_existing_block from "./commands/rename_existing_block.js";
-import copy_existing_block from "./commands/copy_existing_block.js";
+import create_new_block from './commands/create_new_block.js';
+import remove_existing_block from './commands/remove_existing_block.js';
+import { help } from './CONFIG.js';
+import rename_existing_block from './commands/rename_existing_block.js';
+import copy_existing_block from './commands/copy_existing_block.js';
 
-program.command("list").description(help.list).action(list_created_blocks);
+program.command('list').description(help.list).action(list_created_blocks);
 
 program
-  .command("add <block-name-kebab-case>")
+  .command('add <block-name-kebab-case>')
   .description(help.add)
   .action(create_new_block);
 
 program
-  .command("rename <block-name> <block-new-name>")
+  .command('rename <block-name> <block-new-name>')
   .description(help.rename)
   .action(rename_existing_block);
 
 program
-  .command("copy <block-name> <new-block-name>")
+  .command('copy <block-name> <new-block-name>')
   .description(help.copy)
   .action(copy_existing_block);
 
 program
-  .command("remove <block-name-kebab-case>")
+  .command('remove <block-name-kebab-case>')
   .description(help.remove)
   .action(remove_existing_block);
 
