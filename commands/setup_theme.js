@@ -81,11 +81,26 @@ async function setup_theme(themeName) {
     // Download the zip file
     await downloadFile(zipUrl, 'theme-redone.zip');
 
-    // Unzip the file
+    // Unzip the file to a temporary directory
     const spinner = ora('Unzipping the file...').start();
     const zip = new AdmZip('theme-redone.zip');
-    zip.extractAllTo('theme-redone', true); // Extract to current directory
+    const tempExtractPath = path.join('.', 'temp-extract');
+    fs.mkdirSync(tempExtractPath, { recursive: true });
+    zip.extractAllTo(tempExtractPath, true);
     spinner.succeed('Unzipping completed');
+
+    // Determine the top-level directory name and move its contents
+    const extractedFolders = fs.readdirSync(tempExtractPath);
+    if (extractedFolders.length !== 1) {
+      console.error(chalk.red('Unexpected structure in the zip file.'));
+      return false;
+    }
+
+    const topLevelDir = path.join(tempExtractPath, extractedFolders[0]);
+    fs.renameSync(topLevelDir, newThemePath);
+
+    // Clean up temporary directory
+    fs.rmdirSync(tempExtractPath, { recursive: true });
 
     // Delete the .git directory from the new theme folder
     const gitDirPath = path.join(newThemePath, '.git');
