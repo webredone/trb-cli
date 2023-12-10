@@ -41,26 +41,26 @@ async function setup_theme(themeName) {
   try {
     // Check if theme name is in kebab-case
     if (!isKebabCase(themeName)) {
-      console.error(
-        chalk.orange('Theme name must be in kebab-case (example-theme-name).')
+      console.log(
+        chalk.red('\nTheme name must be in kebab-case (example-theme-name')
       );
-      return;
+      return false;
     }
 
     // Ensure the current working directory ends with wp-themes
     const cwd = process.cwd();
     if (!cwd.endsWith('wp-themes')) {
-      console.error(
-        chalk.orange('This command needs to be run inside a wp-themes folder.')
+      console.log(
+        chalk.red('\nThis command needs to be run inside a wp-themes folder.')
       );
-      return;
+      return false;
     }
 
     // Check if theme directory already exists
     const newThemePath = path.join('.', themeName);
     if (fs.existsSync(newThemePath)) {
-      console.error(chalk.orange('A theme with this name already exists.'));
-      return;
+      console.log(chalk.red('\nTA theme with this name already exists.'));
+      return false;
     }
 
     // Fetch the latest release URL from GitHub API
@@ -99,7 +99,9 @@ async function setup_theme(themeName) {
     fs.unlinkSync('theme-redone.zip');
 
     console.log(
-      'Theme has been set up. Please activate the theme from the WordPress admin panel.'
+      chalk.green(
+        'Theme has been set up. Please activate the theme from the WordPress admin panel.'
+      )
     );
 
     // Read package.json and extract Node version
@@ -114,7 +116,8 @@ async function setup_theme(themeName) {
       'Then, run "npm i" and "composer i" from the theme root directory.'
     );
   } catch (error) {
-    console.error(chalk.orange(`Error setting up theme: ${error.message}`));
+    console.error(chalk.red(`Error setting up theme: ${error.message}`));
+    return false;
   }
 }
 
