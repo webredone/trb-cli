@@ -10,6 +10,7 @@ Instead of manually creating new blocks, and copying and renaming files, you can
 
 ## **Installation**
 
+- Make sure to have the node version **>=20.10.0** installed
 - Install the trb-cli package globally via the **npm install @webredone/trb-cli -g** command.
 - Verify that the package was installed successfully by running the trb command; This command lists all the available trb-cli commands. If that’s the case, you are all set up.
 
