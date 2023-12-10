@@ -18,17 +18,25 @@ async function downloadFile(url, outputPath) {
   }
 
   const fileStream = fs.createWriteStream(outputPath);
-  const totalSize = parseInt(response.headers.get('content-length'), 10);
-  const progressBar = new ProgressBar('Downloading [:bar] :percent :etas', {
-    complete: '=',
-    incomplete: ' ',
-    width: 40,
-    total: totalSize,
-  });
+  const contentLength = response.headers.get('content-length');
+  let totalSize = parseInt(contentLength, 10);
 
-  response.body.on('data', (chunk) => {
-    progressBar.tick(chunk.length);
-  });
+  if (isNaN(totalSize)) {
+    console.warn(
+      'Warning: Size of the file is unknown. Progress bar will not be shown.'
+    );
+  } else {
+    const progressBar = new ProgressBar('Downloading [:bar] :percent :etas', {
+      complete: '=',
+      incomplete: ' ',
+      width: 40,
+      total: totalSize,
+    });
+
+    response.body.on('data', (chunk) => {
+      progressBar.tick(chunk.length);
+    });
+  }
 
   await new Promise((resolve, reject) => {
     response.body.pipe(fileStream);
