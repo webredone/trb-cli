@@ -1,11 +1,14 @@
 {
   "name": "@webredone/trb-cli",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "TRB-CLI is a handy Node.js CLI that automates the process of managing blocks in a Theme Redone WordPress theme",
   "main": "index.js",
   "type": "module",
   "directories": {
     "lib": "lib"
+  },
+  "engines": {
+    "node": ">=20.10.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -31,10 +34,14 @@
   },
   "homepage": "https://webredone.com/theme-redone/",
   "dependencies": {
-    "chalk": "^5.0.1",
-    "commander": "^9.1.0",
-    "conf": "^10.1.1",
+    "adm-zip": "^0.5.10",
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "conf": "^12.0.0",
     "is-snake-case": "^0.1.0",
-    "ncp": "^2.0.0"
+    "ncp": "^2.0.0",
+    "node-fetch": "^3.3.2",
+    "ora": "^7.0.1",
+    "progress": "^2.0.3"
   }
 }
