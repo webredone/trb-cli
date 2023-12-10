@@ -13,7 +13,7 @@ import copy_existing_block from './commands/copy_existing_block.js';
 program.command('list').description(help.list).action(list_created_blocks);
 
 program
-  .command('new theme <theme-name>')
+  .command('theme <theme-name>')
   .description(
     'Download and set up a new theme from the latest theme-redone release'
   )

@@ -37,7 +37,7 @@ async function downloadFile(url, outputPath) {
   });
 }
 
-export default async function setup_theme(themeName) {
+async function setup_theme(themeName) {
   try {
     // Check if theme name is in kebab-case
     if (!isKebabCase(themeName)) {
@@ -117,3 +117,5 @@ export default async function setup_theme(themeName) {
     console.error(chalk.orange(`Error setting up theme: ${error.message}`));
   }
 }
+
+export default setup_theme;
