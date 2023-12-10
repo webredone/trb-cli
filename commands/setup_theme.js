@@ -47,9 +47,9 @@ async function setup_theme(themeName) {
       return false;
     }
 
-    // Ensure the current working directory ends with wp-themes
+    // Ensure the current working directory ends themes
     const cwd = process.cwd();
-    if (!cwd.endsWith('wp-themes')) {
+    if (!cwd.endsWith('wp-content/themes')) {
       console.log(
         chalk.red('\nThis command needs to be run inside a wp-themes folder.')
       );
