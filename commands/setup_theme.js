@@ -44,13 +44,14 @@ async function downloadFile(url, outputPath) {
     fileStream.on('finish', resolve);
   });
 }
+// ... [other imports and functions]
 
 async function setup_theme(themeName) {
   try {
     // Check if theme name is in kebab-case
     if (!isKebabCase(themeName)) {
       console.log(
-        chalk.red('\nTheme name must be in kebab-case (example-theme-name')
+        chalk.red('\nTheme name must be in kebab-case (example-theme-name)')
       );
       return false;
     }
@@ -59,7 +60,9 @@ async function setup_theme(themeName) {
     const cwd = process.cwd();
     if (!cwd.endsWith('wp-content/themes')) {
       console.log(
-        chalk.red('\nThis command needs to be run inside a wp-themes folder.')
+        chalk.red(
+          '\nThis command needs to be run inside a wp-content/themes folder.'
+        )
       );
       return false;
     }
@@ -67,7 +70,7 @@ async function setup_theme(themeName) {
     // Check if theme directory already exists
     const newThemePath = path.join('.', themeName);
     if (fs.existsSync(newThemePath)) {
-      console.log(chalk.red('\nTA theme with this name already exists.'));
+      console.log(chalk.red('\nA theme with this name already exists.'));
       return false;
     }
 
@@ -100,7 +103,7 @@ async function setup_theme(themeName) {
     fs.renameSync(topLevelDir, newThemePath);
 
     // Clean up temporary directory
-    fs.rmdirSync(tempExtractPath, { recursive: true });
+    fs.rmSync(tempExtractPath, { recursive: true, force: true });
 
     // Delete the .git directory from the new theme folder
     const gitDirPath = path.join(newThemePath, '.git');
@@ -108,21 +111,19 @@ async function setup_theme(themeName) {
       fs.rmSync(gitDirPath, { recursive: true, force: true });
     }
 
-    // Rename the extracted folder
-    // Note: You need to adjust the logic here to determine the correct extracted folder name
-    spinner.start('Renaming the folder...');
-    const extractedFolderName = 'theme-redone'; // Placeholder, replace with actual logic
-    fs.renameSync(extractedFolderName, newThemePath);
-    spinner.succeed('Renaming completed');
-
     // Modify style.css in the theme folder
     const styleCssPath = path.join(newThemePath, 'style.css');
-    let styleCss = fs.readFileSync(styleCssPath, 'utf8');
-    styleCss = styleCss.replace(
-      /Theme Name: theme-redone/g,
-      `Theme Name: ${themeName}`
-    );
-    fs.writeFileSync(styleCssPath, styleCss);
+    if (fs.existsSync(styleCssPath)) {
+      let styleCss = fs.readFileSync(styleCssPath, 'utf8');
+      styleCss = styleCss.replace(
+        /Theme Name: theme-redone/g,
+        `Theme Name: ${themeName}`
+      );
+      fs.writeFileSync(styleCssPath, styleCss);
+    } else {
+      console.error(chalk.red(`style.css not found in ${newThemePath}`));
+      return false;
+    }
 
     // Delete the zip file
     fs.unlinkSync('theme-redone.zip');
@@ -135,15 +136,20 @@ async function setup_theme(themeName) {
 
     // Read package.json and extract Node version
     const packageJsonPath = path.join(newThemePath, 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    const nodeVersion = packageJson.engines.node;
-
-    console.log(
-      `Please ensure you have Node version ${nodeVersion} installed.`
-    );
-    console.log(
-      'Then, run "npm i" and "composer i" from the theme root directory.'
-    );
+    if (fs.existsSync(packageJsonPath)) {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+      const nodeVersion = packageJson.engines.node;
+      console.log(
+        `Please ensure you have Node version ${nodeVersion} installed.`
+      );
+      console.log(
+        'Then, run "npm i" and "composer i" from the theme root directory.'
+      );
+    } else {
+      console.log(
+        chalk.yellow('Note: package.json not found in the theme directory.')
+      );
+    }
   } catch (error) {
     console.error(chalk.red(`Error setting up theme: ${error.message}`));
     return false;
