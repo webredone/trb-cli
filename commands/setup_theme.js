@@ -87,6 +87,12 @@ async function setup_theme(themeName) {
     zip.extractAllTo('theme-redone', true); // Extract to current directory
     spinner.succeed('Unzipping completed');
 
+    // Delete the .git directory from the new theme folder
+    const gitDirPath = path.join(newThemePath, '.git');
+    if (fs.existsSync(gitDirPath)) {
+      fs.rmSync(gitDirPath, { recursive: true, force: true });
+    }
+
     // Rename the extracted folder
     // Note: You need to adjust the logic here to determine the correct extracted folder name
     spinner.start('Renaming the folder...');
