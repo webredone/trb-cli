@@ -4,6 +4,8 @@ import { program } from 'commander';
 import list_created_blocks from './commands/list_created_blocks.js';
 
 import setup_theme from './commands/setup_theme.js';
+import setup_plugin from './commands/setup_plugin.js';
+
 import create_new_block from './commands/create_new_block.js';
 import remove_existing_block from './commands/remove_existing_block.js';
 import { help } from './CONFIG.js';
@@ -18,6 +20,13 @@ program
     'Download and set up a new theme from the latest theme-redone release'
   )
   .action(setup_theme);
+
+program
+  .command('plugin')
+  .description(
+    'Download and set up a new plugin from the latest trbs=framework plugin release'
+  )
+  .action(setup_plugin);
 
 program
   .command('add <block-name-kebab-case>')
